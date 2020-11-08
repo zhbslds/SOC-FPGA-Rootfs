@@ -61,8 +61,7 @@ jobs:
       run: |
         cd /workdir
         export CROSS_COMPILE=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux/bin/arm-linux-gnueabihf-
-        make -k -C buildroot BR2_TOOLCHAIN_EXTERNAL_PATH=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux all
-        sed -i '3936d' /workdir/buildroot/output/host/usr/bin/automake
+        make -k -C buildroot BR2_TOOLCHAIN_EXTERNAL_PATH=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux all || sed -i '3936d' /workdir/buildroot/output/host/usr/bin/automake
         sed -i '3936i \ \ $text =~ s/\\$[{]([^ \\t=:+{}]+)}/substitute_ac_subst_variables_worker ($1)/ge;' /workdir/buildroot/output/host/usr/bin/automake
         make -C buildroot BR2_TOOLCHAIN_EXTERNAL_PATH=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux all
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
