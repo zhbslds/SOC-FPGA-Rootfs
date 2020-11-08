@@ -59,6 +59,7 @@ jobs:
       
     - name: Compile
       run: |
+        cd /workdir
         export CROSS_COMPILE=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux/bin/arm-linux-gnueabihf-
         make -k -C buildroot BR2_TOOLCHAIN_EXTERNAL_PATH=/workdir/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux all
         sed -i '3936d' /workdir/buildroot/output/host/usr/bin/automake
