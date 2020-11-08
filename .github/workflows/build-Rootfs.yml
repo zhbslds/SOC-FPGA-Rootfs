@@ -5,6 +5,7 @@
 name: Build Root Filesystem
 on:
   watch:
+    repository_dispatch:
     workflow_dispatch:
     inputs:
       ssh:
