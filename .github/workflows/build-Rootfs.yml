@@ -27,14 +27,21 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     
-  steps:
-  - name: Checkout
-    uses: actions/checkout@main
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
     
-  - name: Clone source code
-    working-directory: /workdir
-    run: |
-      df -hT $PWD
-      git clone $REPO_URL -b $REPO_BRANCH buildroot
-      
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH buildroot
+        wget https://releases.linaro.org/archive/14.09/components/toolchain/binaries/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz
+        tar -xvf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       
